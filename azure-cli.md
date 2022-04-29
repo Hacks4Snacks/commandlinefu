@@ -1,3 +1,15 @@
+## Get list of Azure accounts
+
+```Shell
+az account list --output table
+```
+
+## Set active Azure account
+
+```Shell
+az account set --subscription-id <SUBSCRIPTION-ID>
+```
+
 ## Get account access token
 
 ```Shell
