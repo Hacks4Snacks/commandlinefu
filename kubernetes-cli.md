@@ -13,5 +13,12 @@ kubeadm reset
 ## Get Kubernetes Node Taints
 
 ```Shell
-kubectl describe node <nodename> | grep Taints
+kubectl describe node <nodename> | grep -i taints
+```
+
+## Portforwarding from Kubernetes to localhost
+
+```Shell
+kubectl port-forward -n <namespace> <service> <localport>:<remoteport>
+kubectl port-forward -n monitoring svc/lma-kube-prometheus-stack-prometheus 8080:9090
 ```
