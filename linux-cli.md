@@ -17,3 +17,9 @@ net.ipv6.conf.lo.disable_ipv6=1' /etc/sysctl.conf \
 ```Shell
 awk 'BEGIN{ FS = OFS = "|" } { print $0, (NR==1? "COLUMNNAME" : "ROWVALUE") }' <SOURCEFILENAME> > tmp && mv tmp <SOURCEFILENAME>
 ```
+
+## Remove characters from specific column with defined output seperator
+
+```Shell
+awk -F'|' 'BEGIN { OFS = "|"}{ gsub(/\abcd/,"", $5); print } ' <SOURCEFILE> > <TARGETFILE>
+```
