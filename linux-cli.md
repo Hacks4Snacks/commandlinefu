@@ -23,3 +23,9 @@ awk 'BEGIN{ FS = OFS = "|" } { print $0, (NR==1? "COLUMNNAME" : "ROWVALUE") }' <
 ```Shell
 awk -F'|' 'BEGIN { OFS = "|"}{ gsub(/\abcd/,"", $5); print } ' <SOURCEFILE> > <TARGETFILE>
 ```
+
+## View memory usage of an application or process
+
+```Shell
+ps -eo size,pid,user,command --sort -size | awk '{ sz=$1/1024 ; printf("%13.2f MB ",sz) } { for ( x=4 ; x<=NF ; x++ ) { printf("%s ",$x) } print "" }' | cut -d "" -f2 | cut -d "-" -f1 | grep <PROCESSNAME> | awk '{ SUM += $1} END { print SUM }'
+```
