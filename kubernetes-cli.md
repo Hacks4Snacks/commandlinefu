@@ -22,3 +22,9 @@ kubectl describe node <nodename> | grep -i taints
 kubectl port-forward -n <namespace> <service> <localport>:<remoteport>
 kubectl port-forward -n monitoring svc/lma-kube-prometheus-stack-prometheus 8080:9090
 ```
+
+## Get Namespace, Pod, and in-use Container Images Mapped Together
+
+```Shell
+kubectl get pods --all-namespaces -o json | jq -r '.items[] | select(.status.phase == "Running") | .metadata.namespace + " " + .metadata.name + " " + .spec.containers[].image'
+```
