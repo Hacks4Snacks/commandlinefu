@@ -15,3 +15,23 @@ SELECT relname, seq_scan-idx_scan AS too_much_seq, CASE WHEN seq_scan-idx_scan>0
 ```Shell
 DELETE FROM {TABLE} WHERE NOT ({COLUMNNAME} ~ '^\d{10}$');
 ```
+
+## Find duplicate rows in table
+
+```Shell
+SELECT column1, column2, column3, COUNT(*)
+FROM mytable
+GROUP BY column1, column2, column3
+HAVING COUNT(*) > 1;
+```
+
+## Remove duplicate rows from table
+
+```Shell
+DELETE FROM mytable
+WHERE (column1, column2, column3, column4) IN (
+  SELECT DISTINCT ON (column1, column2) column1, column2, column3, column4
+  FROM mytable
+  ORDER BY column1, column2, column3, column4
+);
+```
