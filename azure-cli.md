@@ -29,21 +29,26 @@ az rest --method get --url <RESOURCE URL> --headers "{\"Authorization\": \"Beare
 az vm create --name <NAMEOFVM> --resource-group <NAMEOFRESOURCEGROUP>  --admin-username <ADMINUSERNAME> --ssh-key-values <PATHTOPUBSSHKEY> --image MicrosoftCBLMariner:cbl-mariner:cbl-mariner-2:latest --os-disk-size-gb <OSDISKSIZE>
 ```
 
-## Run AODS Read Command
+## Run Nexus Read Command
 
 ```Shell
 az networkcloud baremetalmachine run-read-command --commands arguments=<ARGUMENT> command=<COMMAND> --ids <RESOURCEID> --limit-time-seconds=60 --verbose --debug
 ```
 
-## Run AODS Run Command
+## Run Nexus Run Command
 
 ```Shell
 az networkcloud baremetalmachine run-command --ids <RESOURCEID> --limit-time-seconds=60 --verbose --debug --script <BASE64ENCODEDSCRIPT>
 ```
 
-## Get OAM IP Addresses of AODS Baremetal Machines
+## Get OAM IP Addresses of Nexus Baremetal Machines
 
 ```Shell
 az networkcloud baremetalmachine list --resource-group <RESOURCEGROUP> | jq -r '.[] | {machineName: .machineName, oamip: .oamIpv4Address}'
 ```
 
+## Get Latest Extension Version (Requires extension registration in active subscription)
+
+```Shell
+az k8s-extension extension-types list-versions-by-location --location <REGION> --extension-type <EXTENSIONNAME> --show-latest 2>/dev/null | jq -r '.[0].properties.version'
+```
